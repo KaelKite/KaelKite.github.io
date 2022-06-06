@@ -91,6 +91,8 @@ function runProgram(){
  function redrawGameItem(){
   $("#walker").css("left", positionX);
   $("#walker").css("top", positionY);
+  $("#player2").css("left", positionX);
+  $("#player2").css("top", positionY)
  }
   
   function endGame() {
