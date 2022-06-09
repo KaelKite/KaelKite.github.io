@@ -53,7 +53,7 @@ function applyFilter(filterFunction){
 }
 
 // TODO 7: Create the applyFilterNoBackground function
-function applyFilterNoBackground(){
+function applyFilterNoBackground(filterFunction){
   var backGround = image[0][0];
      for (var i = 0; i < image.length; i++){
     var row = image[i];
