@@ -17,12 +17,22 @@ function runProgram(){
     UP: 38,
     DOWN: 40,
   }
+  var WASD = {
+    W: 87,
+    A: 65,
+    S: 83,
+    D: 68,
+  }
   //Position of the circle on the x and y axis
   var positionX = 0;
   var positionY = 0;
+  var playerX = 0;
+  var playerY = 0;
   //Speed of the circle on the x and y axis
   var speedX = 0;
   var speedY = 0;
+  var playerSpeedX = 0;
+  var playerSpeedY = 0;
 
 
   // Game Item Objects
@@ -32,7 +42,8 @@ function runProgram(){
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   $(document).on('keyup', handleKeyUp);
-
+  $(document).on('keydown', handleKeyDown2);
+  $(document).on('keyup', handleKeyUp2);
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -43,8 +54,10 @@ function runProgram(){
   */
   function newFrame() {    
     repositionGameItem();
-   redrawGameItem();     
-
+    redrawGameItem();    
+    repositionGameItem2(); 
+    redrawGameItem2();
+    
   }
   
   /* 
@@ -78,6 +91,34 @@ function runProgram(){
       speedY = 0;
     }
   }
+  function handleKeyDown2(event){
+    if (event.which === WASD.A){
+      playerSpeedX = -5;
+    }
+    else if (event.which === WASD.D){
+      playerSpeedX = 5;
+    }
+    else if (event.which === WASD.W){
+      playerSpeedY = -5;
+    }
+    else if (event.which === WASD.S){
+      playerSpeedY = 5;
+    }
+  }
+  function handleKeyUp2 (event){
+    if (event.which === WASD.A){
+      playerSpeedX = 0;
+    }
+    else if (event.which === WASD.D){
+      playerSpeedX = 0;
+    }
+    else if (event.which === WASD.W){
+      playerSpeedY = 0;
+    }
+    else if (event.which === WASD.S){
+      playerSpeedY = 0;
+    }
+  }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -87,12 +128,17 @@ function runProgram(){
   positionX += speedX;
   positionY += speedY;
  }
-
+ function repositionGameItem2(){
+  playerX += playerSpeedX;
+  playerY += playerSpeedY;
+ }
  function redrawGameItem(){
   $("#walker").css("left", positionX);
   $("#walker").css("top", positionY);
-  $("#player2").css("left", positionX);
-  $("#player2").css("top", positionY)
+ }
+ function redrawGameItem2(){
+  $("#player2").css("left", playerX);
+  $("#player2").css("top", playerY);
  }
   
   function endGame() {
