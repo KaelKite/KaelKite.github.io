@@ -10,7 +10,15 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  
+  //paddle controls
+  var KEY = {
+    UP: 38,
+    DOWN: 40,
+  }
+  var WD = {
+    W: 87,
+    D: 68,
+  }
   // Game Item Objects
   function GameItem(elementId) {
     var gameItem = {};
@@ -25,6 +33,8 @@ function runProgram(){
     }
 
     var obj = GameItem("#ball")
+
+    
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('eventType', handleEvent);                           // change 'eventType' to the type of event you want to handle
