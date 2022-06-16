@@ -1,0 +1,30 @@
+User Story/Gameplay
+Two players control the paddles while a ball bounces against those paddles, 
+the one to get the ball past the others paddle gets a point
+//
+the ball starts in the middle and is slow
+//
+Yes the game has and end, it ends when one player gets 11 points
+//
+if (player1Points = 11){
+    return restart
+}
+else if (player2Points = 11){
+    return restart
+//
+visual game components 
+The visual game components will be the ball, the paddles, and the board.
+/
+the one thats static is the board while the ones thats animated will be the ball and the paddles.
+//
+The data I will have to manage will be the speed, the position, and the points of each paddle.
+//
+Events/Logic
+The events that will occur in this game will be timer events
+//
+It makes the data move evrything faster
+//
+1. The speed of the ball is increased when it hits a paddle
+2. The point total goes up by one when it enters the abyss
+3. The ball resets to the middle with its starting speed
+
