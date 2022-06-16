@@ -22,9 +22,9 @@ The data I will have to manage will be the speed, the position, and the points o
 Events/Logic
 The events that will occur in this game will be timer events
 //
-It makes the data move evrything faster
+It makes the data move evreything faster
 //
-1. The speed of the ball is increased when it hits a paddle
-2. The point total goes up by one when it enters the abyss
-3. The ball resets to the middle with its starting speed
+push down on the up arrow or down arrow in order to go up or down, 
+press down on the W key or D key in order to go up or down
+
 
