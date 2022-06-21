@@ -12,6 +12,8 @@ function runProgram(){
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   const BOARD_WIDTH = $("#board").width();
   const BOARD_HEIGHT = $("#board").height();
+  //const BOARD_X = $("#board").x();
+  //const BOARD_Y =$("#board").y();
   //paddle controls
   var KEY = {
     UP: 38,
@@ -67,17 +69,31 @@ function runProgram(){
     wallCollision();
   }
   function wallCollision(){
-    //ball.leftX = ball.x;
-    //ball.rightX = ball.x + ball.width;
-    //ball.topY = ball.y;
-    //ball.bottomY = ball.y + ball.height; 
   if (ball.x > BOARD_WIDTH){
+    ball.speedX *= -1
+  }
+  else if (ball.x < 0){
     ball.speedX *= -1
   }
   else if (ball.y > BOARD_HEIGHT){
       ball.speedY *= -1
   }
-
+  else if (ball.y < 0){
+    ball.speedY *= -1
+  }
+  if (player1.y > BOARD_HEIGHT){
+    player1.speedY *= -1
+  }
+  else if (player1.y < 0){
+    player1.speedY *= -1
+  }
+  if (player2.y > BOARD_HEIGHT){
+    player2.y *= -1
+  }
+  else if (player2.y < 0){
+    player2.y *= -1
+  }
+  
   }
 
   
