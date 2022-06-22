@@ -12,8 +12,6 @@ function runProgram(){
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   const BOARD_WIDTH = $("#board").width();
   const BOARD_HEIGHT = $("#board").height();
-  //const BOARD_X = $("#board").x();
-  //const BOARD_Y =$("#board").y();
   //paddle controls
   var KEY = {
     UP: 38,
@@ -41,6 +39,11 @@ function runProgram(){
     var ball = GameItem("#ball")
     var player1 = GameItem("#player1")
     var player2 = GameItem("#player2")
+
+    var score1 = $("#score1");
+    var score2 = $("#score2");
+    score1.score = 0;
+    score2.score = 0;
     //var board = GameItem("#board")
     
   // one-time setup
@@ -67,34 +70,22 @@ function runProgram(){
     repositionBall();
     redrawBall();
     wallCollision();
+    scoring();
+    if (doCollide(ball, player1)){
+      ball.speedX *= -1
+    }
+    if (doCollide(ball, player2)){
+      ball.speedX *= -1
+    }
+    if (score1.score >= 11){
+      endGame();
+    }
+    if (score2.score >= 11){
+      endGame();
+    }
   }
-  function wallCollision(){
-  if (ball.x > BOARD_WIDTH){
-    ball.speedX *= -1
-  }
-  else if (ball.x < 0){
-    ball.speedX *= -1
-  }
-  else if (ball.y > BOARD_HEIGHT){
-      ball.speedY *= -1
-  }
-  else if (ball.y < 0){
-    ball.speedY *= -1
-  }
-  if (player1.y > BOARD_HEIGHT){
-    player1.speedY *= -1
-  }
-  else if (player1.y < 0){
-    player1.speedY *= -1
-  }
-  if (player2.y > BOARD_HEIGHT){
-    player2.y *= -1
-  }
-  else if (player2.y < 0){
-    player2.y *= -1
-  }
+
   
-  }
 
   
   function handleKeyDown(event) {
@@ -142,11 +133,72 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
- function startBall(){
+  function doCollide(square1, square2) {
+    // TODO: calculate and store the remaining
+    // sides of the square1
+    square1.leftX = square1.x;
+    square1.rightX = square1.x + square1.width;
+    square1.topY = square1.y;
+    square1.bottomY = square1.y + square1.height; 
+    // TODO: Do the same for square2
+    square2.leftX = square2.x;
+    square2.rightX = square2.x + square2.width;
+    square2.topY = square2.y;
+    square2.bottomY = square2.y + square2.height;
+    // TODO: Return true if they are overlapping, false otherwise
+	var result = ((square1.leftX < square2.rightX && square1.rightX > square2.leftX &&
+        square1.topY < square2.bottomY && square1.bottomY > square2.topY) ? true : false); 
+	
+    return result;
+}
+
+  function scoring(){
+    if (ball.x > BOARD_WIDTH) {
+      score1.score += 1;
+      startBall();
+    }
+    else if (ball.x < 0) {
+      score2.score += 1;
+      startBall();
+    }
+  $("#score1").text(score1.score);
+  $("#score2").text(score2.score);
+ }
+
+  function wallCollision(){
+    if (ball.x > BOARD_WIDTH){
+      ball.speedX *= -1
+    }
+    else if (ball.x < 0){
+      ball.speedX *= -1
+    }
+    else if (ball.y > BOARD_HEIGHT){
+        ball.speedY *= -1
+    }
+    else if (ball.y < 0){
+      ball.speedY *= -1
+    }
+    if (player1.y > BOARD_HEIGHT){
+      player1.speedY *= -1
+    }
+    else if (player1.y < 0){
+      player1.speedY *= -1
+    }
+    if (player2.y > BOARD_HEIGHT){
+      player2.y *= -1
+    }
+    else if (player2.y < 0){
+      player2.y *= -1
+    }
+    
+    }
+  function startBall(){
   $("#ball").css("left", ball.x);
   $("#ball").css("top", ball.y);
   ball.speedX = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
   ball.speedY = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
+  ball.x = 220;
+  ball.y = 220;
  }
  function repositionBall(){
   ball.x += ball.speedX
